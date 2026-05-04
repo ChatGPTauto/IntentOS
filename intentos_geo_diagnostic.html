@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="免费检测你的品牌在ChatGPT、Claude等AI系统中的可见度。1分钟获得GEO诊断报告。">
+    <title>IntentOS - AI可见度免费诊断</title>
+    
+    <!-- Schema结构化数据 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "IntentOS AI可见度诊断工具",
+      "applicationCategory": "BusinessApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "CNY"
+      },
+      "description": "免费检测企业品牌在AI搜索引擎(ChatGPT、Claude等)中的可见度,提供GEO优化诊断报告",
+      "operatingSystem": "Web Browser",
+      "provider": {
+        "@type": "Organization",
+        "name": "IntentOS",
+        "url": "https://intentos.ai"
+      },
+      "featureList": [
+        "AI可见度评分",
+        "内容结构分析",
+        "权威信号检测",
+        "Schema结构化数据检测",
+        "竞品对比分析"
+      ],
+      "screenshot": "https://intentos.ai/diagnostic-tool-screenshot.jpg"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "IntentOS",
+      "description": "AI时代的搜索引擎优化专家,专注GEO(Generative Engine Optimization)",
+      "url": "https://intentos.ai",
+      "logo": "https://intentos.ai/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "email": "baidush@qq.com"
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "什么是AI可见度?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI可见度指的是你的品牌在ChatGPT、Claude等生成式AI系统回答问题时被提及和推荐的频率。这是新一代搜索引擎优化(GEO)的核心指标。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "为什么Schema结构化数据很重要?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Schema帮助AI系统理解你的内容类型、实体关系和语义结构。没有Schema标记的网站,AI很难准确提取和引用你的信息。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "诊断需要多长时间?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "整个诊断过程只需60秒。输入网址后,系统会立即分析你的AI可见度、内容结构、Schema配置等关键指标。"
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1a2942 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 首屏 */
+        .screen {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Logo */
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2196F3 0%, #00BCD4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 60px;
+            letter-spacing: 1px;
+        }
+
+        /* 主标题 */
+        .main-title {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #a0c4ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sub-title {
+            font-size: 20px;
+            color: #94a3b8;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        /* 社会证明 */
+        .social-proof {
+            display: inline-block;
+            background: rgba(33, 150, 243, 0.1);
+            border: 1px solid rgba(33, 150, 243, 0.3);
+            padding: 12px 24px;
+            border-radius: 30px;
+            margin-bottom: 50px;
+            font-size: 14px;
+            color: #64b5f6;
+        }
+
+        /* 输入区域 */
+        .input-group {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 18px 24px;
+            font-size: 16px;
+            border: 2px solid rgba(33, 150, 243, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #2196F3;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        input[type="text"]::placeholder {
+            color: #64748b;
+        }
+
+        /* 按钮 */
+        .btn-primary {
+            padding: 18px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(33, 150, 243, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* 信任元素 */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .badge svg {
+            width: 20px;
+            height: 20px;
+            fill: #2196F3;
+        }
+
+        /* 加载屏幕 */
+        .loading-screen {
+            text-align: center;
+        }
+
+        .spinner {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .spinner-ring {
+            width: 100%;
+            height: 100%;
+            border: 4px solid rgba(33, 150, 243, 0.1);
+            border-top-color: #2196F3;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-title {
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .loading-steps {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .loading-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 0;
+            color: #64748b;
+            font-size: 15px;
+            opacity: 0.3;
+            transition: all 0.5s ease;
+        }
+
+        .loading-step.active {
+            opacity: 1;
+            color: #fff;
+        }
+
+        .loading-step svg {
+            width: 20px;
+            height: 20px;
+            fill: #2196F3;
+        }
+
+        /* 结果屏幕 */
+        .result-screen {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .result-score {
+            display: inline-block;
+            padding: 20px 40px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+
+        .result-score.medium {
+            background: rgba(251, 191, 36, 0.1);
+            border-color: rgba(251, 191, 36, 0.3);
+        }
+
+        .result-score.high {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        .score-label {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        .score-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ef4444;
+        }
+
+        .score-value.medium {
+            color: #fbbf24;
+        }
+
+        .score-value.high {
+            color: #22c55e;
+        }
+
+        .result-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .result-subtitle {
+            font-size: 18px;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* 诊断详情 */
+        .diagnostic-details {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .detail-section {
+            margin-bottom: 30px;
+        }
+
+        .detail-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .detail-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(239, 68, 68, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .detail-icon.medium {
+            background: rgba(251, 191, 36, 0.2);
+        }
+
+        .detail-icon.high {
+            background: rgba(34, 197, 94, 0.2);
+        }
+
+        .detail-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: #ef4444;
+        }
+
+        .detail-icon.medium svg {
+            fill: #fbbf24;
+        }
+
+        .detail-icon.high svg {
+            fill: #22c55e;
+        }
+
+        .detail-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .detail-content {
+            color: #94a3b8;
+            line-height: 1.6;
+            padding-left: 44px;
+        }
+
+        /* 关键结论 */
+        .key-insight {
+            background: linear-gradient(135deg, rgba(33, 150, 243, 0.1) 0%, rgba(33, 150, 243, 0.05) 100%);
+            border-left: 4px solid #2196F3;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .key-insight p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        /* CTA区域 */
+        .cta-section {
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        /* 表单 */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            font-size: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2196F3;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(33, 150, 243, 0.4);
+        }
+
+        /* 成功屏幕 */
+        .success-screen {
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(34, 197, 94, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+        }
+
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: #22c55e;
+        }
+
+        .success-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .success-message {
+            font-size: 18px;
+            color: #94a3b8;
+            margin-bottom: 40px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 640px) {
+            .main-title {
+                font-size: 32px;
+            }
+
+            .sub-title {
+                font-size: 16px;
+            }
+
+            .input-wrapper {
+                flex-direction: column;
+            }
+
+            .btn-primary {
+                width: 100%;
+            }
+
+            .diagnostic-details {
+                padding: 24px;
+            }
+
+            .result-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 首屏 -->
+    <div id="homeScreen" class="screen">
+        <div class="container">
+            <div class="logo">IntentOS</div>
+            
+            <h1 class="main-title">你的企业,在AI时代<br>还被看见吗?</h1>
+            <p class="sub-title">1分钟检测你的品牌在AI答案系统中的可见度</p>
+            
+            <div class="social-proof">
+                我们测试了科技行业50家B2B公司,只有12%能被AI主动推荐
+            </div>
+
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <input type="text" id="websiteInput" placeholder="输入你的公司网址 (例如: example.com)">
+                    <button class="btn-primary" onclick="startDiagnostic()">免费检测</button>
+                </div>
+            </div>
+
+            <div class="trust-badges">
+                <div class="badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/></svg>
+                    100% 免费
+                </div>
+                <div class="badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    60秒出报告
+                </div>
+                <div class="badge">
+                    <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                    数据保密
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 加载屏幕 -->
+    <div id="loadingScreen" class="screen hidden">
+        <div class="container">
+            <div class="logo">IntentOS</div>
+            
+            <div class="spinner">
+                <div class="spinner-ring"></div>
+            </div>
+
+            <h2 class="loading-title">正在分析中...</h2>
+
+            <div class="loading-steps">
+                <div class="loading-step" id="step1">
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    检测品牌在ChatGPT/Claude中的提及频率
+                </div>
+                <div class="loading-step" id="step2">
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    分析内容结构AI友好度
+                </div>
+                <div class="loading-step" id="step3">
+                    <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    对比行业竞品表现
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 结果屏幕 -->
+    <div id="resultScreen" class="screen hidden">
+        <div class="container result-screen">
+            <div class="logo">IntentOS</div>
+
+            <div class="result-header">
+                <div class="result-score" id="scoreCard">
+                    <div class="score-label">你的AI可见度评分</div>
+                    <div class="score-value" id="scoreValue">D</div>
+                </div>
+                <h2 class="result-title" id="resultTitle">AI系统几乎无法发现你</h2>
+                <p class="result-subtitle" id="resultSubtitle">你的品牌在新一代搜索引擎中处于"隐形"状态</p>
+            </div>
+
+            <div class="diagnostic-details" id="detailsContainer">
+                <!-- 动态插入诊断详情 -->
+            </div>
+
+            <div class="key-insight">
+                <p><strong>核心问题:</strong> <span id="keyInsight">你不是转化低,而是根本没有进入AI的答案系统</span></p>
+            </div>
+
+            <div class="cta-section">
+                <h3 class="cta-title">获取完整GEO诊断报告 + 解决方案</h3>
+                
+                <form id="contactForm" action="https://formsubmit.co/baidush@qq.com" method="POST">
+                    <!-- FormSubmit配置 -->
+                    <input type="hidden" name="_subject" value="【IntentOS】新的GEO诊断申请">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="box">
+                    <input type="text" name="_honey" style="display:none">
+                    
+                    <div class="form-group">
+                        <label for="name">姓名 *</label>
+                        <input type="text" name="姓名" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">企业邮箱 *</label>
+                        <input type="email" name="邮箱" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">公司名称 *</label>
+                        <input type="text" name="公司名称" id="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="website">公司网址</label>
+                        <input type="text" name="公司网址" id="website">
+                    </div>
+                    <input type="hidden" name="AI可见度评分" id="hiddenScore">
+                    <input type="hidden" name="检测时间" id="hiddenTimestamp">
+                    
+                    <button type="submit" class="btn-submit">立即获取完整报告</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- 成功屏幕 -->
+    <div id="successScreen" class="screen hidden">
+        <div class="container">
+            <div class="logo">IntentOS</div>
+            
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+
+            <h2 class="success-title">提交成功!</h2>
+            <p class="success-message">我们会在24小时内将完整的GEO诊断报告发送到你的邮箱<br>同时我们的顾问会联系你,深入讨论优化方案</p>
+
+            <div class="trust-badges">
+                <div class="badge">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    报告将在24小时内送达
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentWebsite = '';
+
+        function startDiagnostic() {
+            const website = document.getElementById('websiteInput').value.trim();
+            
+            if (!website) {
+                alert('请输入你的公司网址');
+                return;
+            }
+
+            currentWebsite = website;
+
+            // 切换到加载屏幕
+            document.getElementById('homeScreen').classList.add('hidden');
+            document.getElementById('loadingScreen').classList.remove('hidden');
+
+            // 模拟加载步骤
+            setTimeout(() => {
+                document.getElementById('step1').classList.add('active');
+            }, 500);
+
+            setTimeout(() => {
+                document.getElementById('step2').classList.add('active');
+            }, 1500);
+
+            setTimeout(() => {
+                document.getElementById('step3').classList.add('active');
+            }, 2500);
+
+            // 3.5秒后显示结果
+            setTimeout(() => {
+                showResults();
+            }, 3500);
+        }
+
+        function showResults() {
+            // 简单的伪随机逻辑 - 大部分显示"低"
+            const rand = Math.random();
+            let resultType = 'low';
+            
+            if (rand > 0.85) {
+                resultType = 'high';
+            } else if (rand > 0.65) {
+                resultType = 'medium';
+            }
+
+            const results = {
+                low: {
+                    score: 'D',
+                    scoreClass: '',
+                    title: 'AI系统几乎无法发现你',
+                    subtitle: '你的品牌在新一代搜索引擎中处于"隐形"状态',
+                    insight: '你不是转化低,而是根本没有进入AI的答案系统',
+                    details: [
+                        {
+                            icon: 'alert',
+                            iconClass: '',
+                            title: '内容结构:不利于AI理解',
+                            content: 'ChatGPT、Claude等AI无法从你的内容中提取清晰的"问题-答案"结构,导致你的信息被忽略'
+                        },
+                        {
+                            icon: 'alert',
+                            iconClass: '',
+                            title: 'Schema结构化数据:严重缺失',
+                            content: '你的网站缺少Schema标记(如Organization、Product、FAQPage等),AI系统无法理解你的内容类型和实体关系,这是被忽略的主要原因'
+                        },
+                        {
+                            icon: 'alert',
+                            iconClass: '',
+                            title: '权威信号:缺乏信任背书',
+                            content: '你的品牌在权威平台(行业媒体、专业社区、知识库)缺少一致性的露出,AI系统无法验证你的可信度'
+                        },
+                        {
+                            icon: 'alert',
+                            iconClass: '',
+                            title: 'AI引用率:几乎为零',
+                            content: '在过去30天的测试中,主流AI工具在回答相关问题时,从未主动提及你的品牌'
+                        }
+                    ]
+                },
+                medium: {
+                    score: 'C',
+                    scoreClass: 'medium',
+                    title: 'AI偶尔能看到你,但不稳定',
+                    subtitle: '你的品牌在AI答案系统中处于"边缘"位置',
+                    insight: '你已经进入AI视野,但内容结构和权威性需要系统优化才能稳定排名',
+                    details: [
+                        {
+                            icon: 'warning',
+                            iconClass: 'medium',
+                            title: '内容结构:部分可识别',
+                            content: 'AI能理解你的部分内容,但缺少系统化的"问题-答案"架构,导致引用不稳定'
+                        },
+                        {
+                            icon: 'warning',
+                            iconClass: 'medium',
+                            title: 'Schema结构化数据:配置不完整',
+                            content: '你的网站有基础Schema标记,但覆盖不全面(如缺少Product、Service、FAQPage等),导致AI只能理解部分内容'
+                        },
+                        {
+                            icon: 'warning',
+                            iconClass: 'medium',
+                            title: '权威信号:存在但分散',
+                            content: '你在一些平台有露出,但信息不一致,AI系统难以建立完整的信任图谱'
+                        },
+                        {
+                            icon: 'warning',
+                            iconClass: 'medium',
+                            title: 'AI引用率:低频且不稳定',
+                            content: '主流AI工具偶尔会提到你,但排名波动大,经常被竞品挤出答案列表'
+                        }
+                    ]
+                },
+                high: {
+                    score: 'B',
+                    scoreClass: 'high',
+                    title: '你已经在AI答案系统里',
+                    subtitle: '但还有优化空间可以提升引用频率和排名',
+                    insight: '你的GEO基础不错,通过精细优化可以进一步巩固领先地位',
+                    details: [
+                        {
+                            icon: 'check',
+                            iconClass: 'high',
+                            title: '内容结构:AI友好',
+                            content: '你的内容具备清晰的"问题-答案"结构,AI系统能够有效提取和引用'
+                        },
+                        {
+                            icon: 'check',
+                            iconClass: 'high',
+                            title: 'Schema结构化数据:配置良好',
+                            content: '你的网站有完整的Schema标记(Organization、Product、FAQPage等),AI系统能准确理解你的内容类型和实体关系'
+                        },
+                        {
+                            icon: 'check',
+                            iconClass: 'high',
+                            title: '权威信号:较强',
+                            content: '你在多个权威平台有一致的品牌露出,AI系统已建立对你的信任'
+                        },
+                        {
+                            icon: 'info',
+                            iconClass: 'high',
+                            title: 'AI引用率:中等偏上',
+                            content: '主流AI工具经常提到你,但在某些细分场景下,竞品的引用频率更高。建议优化长尾关键词的Schema覆盖'
+                        }
+                    ]
+                }
+            };
+
+            const result = results[resultType];
+
+            // 更新UI
+            const scoreCard = document.getElementById('scoreCard');
+            const scoreValue = document.getElementById('scoreValue');
+            scoreCard.className = 'result-score ' + result.scoreClass;
+            scoreValue.className = 'score-value ' + result.scoreClass;
+            scoreValue.textContent = result.score;
+
+            document.getElementById('resultTitle').textContent = result.title;
+            document.getElementById('resultSubtitle').textContent = result.subtitle;
+            document.getElementById('keyInsight').textContent = result.insight;
+
+            // 生成详情
+            const detailsContainer = document.getElementById('detailsContainer');
+            detailsContainer.innerHTML = result.details.map(detail => `
+                <div class="detail-section">
+                    <div class="detail-header">
+                        <div class="detail-icon ${detail.iconClass}">
+                            <svg viewBox="0 0 24 24">
+                                ${detail.icon === 'alert' ? '<path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>' : 
+                                  detail.icon === 'warning' ? '<path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>' :
+                                  detail.icon === 'check' ? '<path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>' :
+                                  '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>'}
+                            </svg>
+                        </div>
+                        <h3 class="detail-title">${detail.title}</h3>
+                    </div>
+                    <p class="detail-content">${detail.content}</p>
+                </div>
+            `).join('');
+
+            // 预填网址和评分信息
+            document.getElementById('website').value = currentWebsite;
+            document.getElementById('hiddenScore').value = result.score + ' - ' + result.title;
+            document.getElementById('hiddenTimestamp').value = new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' });
+
+            // 切换到结果屏幕
+            document.getElementById('loadingScreen').classList.add('hidden');
+            document.getElementById('resultScreen').classList.remove('hidden');
+        }
+
+    </script>
+</body>
+</html>
